@@ -1,0 +1,25 @@
+---
+title: "Finetuning on low-confidence data"
+about:
+  template: marquee
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/FrenchKrab
+    - icon: book
+      text: Google Scholar
+      href: https://scholar.google.com/citations?user=7gJ465gAAAAJ
+
+---
+
+# ECE and DER with x seconds of annotated training data
+
+In the paper we show only a few points to make the small figures readable : 30, 300 and 1200 seconds. We present here the figures with all runs. Each point is the average of 3 runs.
+
+The figure is interactive so that you can zoom in and look at the detail of each point of data.
+
+<!-- 22.2_draw_ece_for_finetune_gridlike_plotly.ipynb -->
+```{=html}
+<iframe src="site_media/finetune/finetune_plot.html" onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight+"px";}(this));' style="height:200px;width:100%;border:none;overflow:hidden;"></iframe>
+```
+

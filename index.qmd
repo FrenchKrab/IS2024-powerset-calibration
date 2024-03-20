@@ -1,0 +1,13 @@
+---
+title: "Index"
+about:
+  template: marquee
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/FrenchKrab
+    - icon: book
+      text: Google Scholar
+      href: https://scholar.google.com/citations?user=7gJ465gAAAAJ
+
+---

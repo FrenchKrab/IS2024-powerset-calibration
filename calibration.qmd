@@ -1,0 +1,73 @@
+---
+title: "Analysis of the pretrained powerset speaker diarization model"
+about:
+  template: marquee
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/FrenchKrab
+    - icon: book
+      text: Google Scholar
+      href: https://scholar.google.com/citations?user=7gJ465gAAAAJ
+
+---
+
+
+# Raw results table
+
+We could not include the raw result table in the paper. We show it here, and include some additional metrics (Expected Calibration Error using different binning schemes and bin counts). It is pretty clear that the bins used to compute the ECE does not have a huge impact on the metric.
+
+::: {.callout-warning title="About the reported DERs"}
+Do note that the DER given here is the **local** diarization error rate. It **can not be compared to DERs usually reported in the litterature** ! Since the powerset speaker diarization model works on local windows of a few seconds (5 seconds in our case), we compute compute and sum the DER component on each of these windows. There is no clustering involved here (or in any DER we provide) and it cannot be interpreted as the final pipeline DER.
+:::
+
+| Dataset             |   DER (%) |   Accuracy (%) |   ECE uniform 10 bins (%) |   ECE uniform 20 bins (%) |   ECE adaptive 10 bins (%) |   ECE adaptive 20 bins (%) |
+|:--------------------|----------:|---------------:|--------------------------:|--------------------------:|---------------------------:|---------------------------:|
+| AISHELL             |     11.86 |          89.10 |                      0.39 |                      0.48 |                       0.50 |                       0.50 |
+| AMI-SDM             |     19.49 |          82.79 |                      3.98 |                      3.98 |                       3.98 |                       3.98 |
+| AMI                 |     17.50 |          84.55 |                      3.53 |                      3.53 |                       3.53 |                       3.53 |
+| AVA-AVD             |     34.85 |          81.87 |                      4.30 |                      4.31 |                       4.30 |                       4.30 |
+| AliMeeting          |     19.59 |          79.46 |                      3.04 |                      3.04 |                       3.04 |                       3.04 |
+| CALLHOME            |     22.49 |          77.07 |                      2.57 |                      2.57 |                       2.57 |                       2.57 |
+| MSDWILD             |     20.03 |          80.52 |                      2.89 |                      2.89 |                       2.89 |                       2.89 |
+| RAMC                |     10.69 |          91.12 |                      1.67 |                      1.67 |                       1.67 |                       1.67 |
+| REPERE              |      7.67 |          92.48 |                      1.83 |                      1.83 |                       1.83 |                       1.83 |
+| VoxConverse         |      9.94 |          91.05 |                      0.70 |                      0.70 |                       0.69 |                       0.69 |
+||
+| audiobooks          |     12.22 |          90.44 |                      3.22 |                      3.26 |                       3.28 |                       3.28 |
+| broadcast interview |     16.77 |          86.90 |                      6.50 |                      6.50 |                       6.44 |                       6.44 |
+| clinical            |     32.15 |          79.48 |                      3.94 |                      3.98 |                       3.93 |                       3.94 |
+| court               |     16.46 |          86.00 |                      8.19 |                      8.19 |                       8.17 |                       8.17 |
+| cts                 |     16.47 |          83.68 |                      1.37 |                      1.38 |                       1.37 |                       1.37 |
+| maptask             |     28.15 |          81.25 |                      8.20 |                      8.20 |                       7.97 |                       8.08 |
+| meeting             |     39.70 |          64.26 |                     16.63 |                     16.63 |                      16.63 |                      16.63 |
+| restaurant          |     45.82 |          54.11 |                     14.31 |                     14.31 |                      14.31 |                      14.31 |
+| socio field         |     21.74 |          82.45 |                      2.65 |                      2.65 |                       2.65 |                       2.65 |
+| socio lab           |     22.06 |          82.60 |                      4.36 |                      4.36 |                       4.24 |                       4.33 |
+| webvideo            |     40.01 |          69.75 |                     10.52 |                     10.52 |                      10.52 |                      10.52 |
+
+# DER / ECE scatter plot
+
+The paper contains two scatter plots for DER / ECE. Here we grouped all datasets and domains into one unique scatter plot. Feel free to zoom in and filter out in/out-domain datasets.
+<!-- 09c_view_calibration_eval.ipynb -->
+```{=html}
+<iframe width=800px height=600 src="site_media/calibration/ece_der_scatter.html" scrolling="no"></iframe>
+```
+
+# Reliability diagrams
+
+## Uniform binning with 10 bins
+
+<!-- 09c_view_calibration_eval.ipynb with BINNING_METHOD='uniform' -->
+::: {.callout-note appearance="detail" collapse=true}
+# Using uniform binning with 10 bins
+![](site_media/calibration/reliability_uniform10bins.png)
+:::
+
+<!-- 09c_view_calibration_eval.ipynb with BINNING_METHOD='adaptive' -->
+## Adapative binning with 10 bins
+
+::: {.callout-note appearance="detail" collapse=true}
+# Using adaptive binning with 10 bins
+![](site_media/calibration/reliability_adaptive10bins.png)
+:::
