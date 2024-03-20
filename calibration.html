@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>On the calibration of powerset speaker diarization models - Analysis of the pretrained powerset speaker diarization model</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./favicon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">On the calibration of powerset speaker diarization models</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target=""><i class="bi bi-card-list" role="img">
+</i> 
+ <span class="menu-text">Index</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./calibration.html" rel="" target="" aria-current="page"><i class="bi bi-reception-4" role="img">
+</i> 
+ <span class="menu-text">Calibration</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./finetuning.html" rel="" target=""><i class="bi bi-sliders2-vertical" role="img">
+</i> 
+ <span class="menu-text">Finetuning</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./validation.qmd" rel="" target=""><i class="bi bi-database" role="img">
+</i> 
+ <span class="menu-text">Validation</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+  <ul>
+  <li><a href="#raw-results-table" id="toc-raw-results-table" class="nav-link active" data-scroll-target="#raw-results-table">Raw results table</a></li>
+  <li><a href="#der-ece-scatter-plot" id="toc-der-ece-scatter-plot" class="nav-link" data-scroll-target="#der-ece-scatter-plot">DER / ECE scatter plot</a></li>
+  <li><a href="#reliability-diagrams" id="toc-reliability-diagrams" class="nav-link" data-scroll-target="#reliability-diagrams">Reliability diagrams</a>
+  <ul class="collapse">
+  <li><a href="#uniform-binning-with-10-bins" id="toc-uniform-binning-with-10-bins" class="nav-link" data-scroll-target="#uniform-binning-with-10-bins">Uniform binning with 10 bins</a></li>
+  <li><a href="#adapative-binning-with-10-bins" id="toc-adapative-binning-with-10-bins" class="nav-link" data-scroll-target="#adapative-binning-with-10-bins">Adapative binning with 10 bins</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<div class="quarto-about-marquee">
+  <div class="about-image-container">
+  </div>
+  <div class="about-contents">
+    <header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Analysis of the pretrained powerset speaker diarization model</h1>
+</div>
+<div class="quarto-title-meta">
+  </div>
+</header> <main class="content" id="quarto-document-content">
+
+<section id="raw-results-table" class="level1">
+<h1>Raw results table</h1>
+<p>We could not include the raw result table in the paper. We show it here, and include some additional metrics (Expected Calibration Error using different binning schemes and bin counts). It is pretty clear that the bins used to compute the ECE does not have a huge impact on the metric.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="About the reported DERs">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+About the reported DERs
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do note that the DER given here is the <strong>local</strong> diarization error rate. It <strong>can not be compared to DERs usually reported in the litterature</strong> ! Since the powerset speaker diarization model works on local windows of a few seconds (5 seconds in our case), we compute compute and sum the DER component on each of these windows. There is no clustering involved here (or in any DER we provide) and it cannot be interpreted as the final pipeline DER.</p>
+</div>
+</div>
+<table class="table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 6%">
+<col style="width: 10%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Dataset</th>
+<th style="text-align: right;">DER (%)</th>
+<th style="text-align: right;">Accuracy (%)</th>
+<th style="text-align: right;">ECE uniform 10 bins (%)</th>
+<th style="text-align: right;">ECE uniform 20 bins (%)</th>
+<th style="text-align: right;">ECE adaptive 10 bins (%)</th>
+<th style="text-align: right;">ECE adaptive 20 bins (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">AISHELL</td>
+<td style="text-align: right;">11.86</td>
+<td style="text-align: right;">89.10</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AMI-SDM</td>
+<td style="text-align: right;">19.49</td>
+<td style="text-align: right;">82.79</td>
+<td style="text-align: right;">3.98</td>
+<td style="text-align: right;">3.98</td>
+<td style="text-align: right;">3.98</td>
+<td style="text-align: right;">3.98</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AMI</td>
+<td style="text-align: right;">17.50</td>
+<td style="text-align: right;">84.55</td>
+<td style="text-align: right;">3.53</td>
+<td style="text-align: right;">3.53</td>
+<td style="text-align: right;">3.53</td>
+<td style="text-align: right;">3.53</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AVA-AVD</td>
+<td style="text-align: right;">34.85</td>
+<td style="text-align: right;">81.87</td>
+<td style="text-align: right;">4.30</td>
+<td style="text-align: right;">4.31</td>
+<td style="text-align: right;">4.30</td>
+<td style="text-align: right;">4.30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AliMeeting</td>
+<td style="text-align: right;">19.59</td>
+<td style="text-align: right;">79.46</td>
+<td style="text-align: right;">3.04</td>
+<td style="text-align: right;">3.04</td>
+<td style="text-align: right;">3.04</td>
+<td style="text-align: right;">3.04</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CALLHOME</td>
+<td style="text-align: right;">22.49</td>
+<td style="text-align: right;">77.07</td>
+<td style="text-align: right;">2.57</td>
+<td style="text-align: right;">2.57</td>
+<td style="text-align: right;">2.57</td>
+<td style="text-align: right;">2.57</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MSDWILD</td>
+<td style="text-align: right;">20.03</td>
+<td style="text-align: right;">80.52</td>
+<td style="text-align: right;">2.89</td>
+<td style="text-align: right;">2.89</td>
+<td style="text-align: right;">2.89</td>
+<td style="text-align: right;">2.89</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RAMC</td>
+<td style="text-align: right;">10.69</td>
+<td style="text-align: right;">91.12</td>
+<td style="text-align: right;">1.67</td>
+<td style="text-align: right;">1.67</td>
+<td style="text-align: right;">1.67</td>
+<td style="text-align: right;">1.67</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">REPERE</td>
+<td style="text-align: right;">7.67</td>
+<td style="text-align: right;">92.48</td>
+<td style="text-align: right;">1.83</td>
+<td style="text-align: right;">1.83</td>
+<td style="text-align: right;">1.83</td>
+<td style="text-align: right;">1.83</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">VoxConverse</td>
+<td style="text-align: right;">9.94</td>
+<td style="text-align: right;">91.05</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">audiobooks</td>
+<td style="text-align: right;">12.22</td>
+<td style="text-align: right;">90.44</td>
+<td style="text-align: right;">3.22</td>
+<td style="text-align: right;">3.26</td>
+<td style="text-align: right;">3.28</td>
+<td style="text-align: right;">3.28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">broadcast interview</td>
+<td style="text-align: right;">16.77</td>
+<td style="text-align: right;">86.90</td>
+<td style="text-align: right;">6.50</td>
+<td style="text-align: right;">6.50</td>
+<td style="text-align: right;">6.44</td>
+<td style="text-align: right;">6.44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">clinical</td>
+<td style="text-align: right;">32.15</td>
+<td style="text-align: right;">79.48</td>
+<td style="text-align: right;">3.94</td>
+<td style="text-align: right;">3.98</td>
+<td style="text-align: right;">3.93</td>
+<td style="text-align: right;">3.94</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">court</td>
+<td style="text-align: right;">16.46</td>
+<td style="text-align: right;">86.00</td>
+<td style="text-align: right;">8.19</td>
+<td style="text-align: right;">8.19</td>
+<td style="text-align: right;">8.17</td>
+<td style="text-align: right;">8.17</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cts</td>
+<td style="text-align: right;">16.47</td>
+<td style="text-align: right;">83.68</td>
+<td style="text-align: right;">1.37</td>
+<td style="text-align: right;">1.38</td>
+<td style="text-align: right;">1.37</td>
+<td style="text-align: right;">1.37</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">maptask</td>
+<td style="text-align: right;">28.15</td>
+<td style="text-align: right;">81.25</td>
+<td style="text-align: right;">8.20</td>
+<td style="text-align: right;">8.20</td>
+<td style="text-align: right;">7.97</td>
+<td style="text-align: right;">8.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">meeting</td>
+<td style="text-align: right;">39.70</td>
+<td style="text-align: right;">64.26</td>
+<td style="text-align: right;">16.63</td>
+<td style="text-align: right;">16.63</td>
+<td style="text-align: right;">16.63</td>
+<td style="text-align: right;">16.63</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">restaurant</td>
+<td style="text-align: right;">45.82</td>
+<td style="text-align: right;">54.11</td>
+<td style="text-align: right;">14.31</td>
+<td style="text-align: right;">14.31</td>
+<td style="text-align: right;">14.31</td>
+<td style="text-align: right;">14.31</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">socio field</td>
+<td style="text-align: right;">21.74</td>
+<td style="text-align: right;">82.45</td>
+<td style="text-align: right;">2.65</td>
+<td style="text-align: right;">2.65</td>
+<td style="text-align: right;">2.65</td>
+<td style="text-align: right;">2.65</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">socio lab</td>
+<td style="text-align: right;">22.06</td>
+<td style="text-align: right;">82.60</td>
+<td style="text-align: right;">4.36</td>
+<td style="text-align: right;">4.36</td>
+<td style="text-align: right;">4.24</td>
+<td style="text-align: right;">4.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">webvideo</td>
+<td style="text-align: right;">40.01</td>
+<td style="text-align: right;">69.75</td>
+<td style="text-align: right;">10.52</td>
+<td style="text-align: right;">10.52</td>
+<td style="text-align: right;">10.52</td>
+<td style="text-align: right;">10.52</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="der-ece-scatter-plot" class="level1">
+<h1>DER / ECE scatter plot</h1>
+<p>The paper contains two scatter plots for DER / ECE. Here we grouped all datasets and domains into one unique scatter plot. Feel free to zoom in and filter out in/out-domain datasets. <!-- 09c_view_calibration_eval.ipynb --></p>
+<iframe width="800px" height="600" src="site_media/calibration/ece_der_scatter.html" scrolling="no"></iframe>
+</section>
+<section id="reliability-diagrams" class="level1">
+<h1>Reliability diagrams</h1>
+<section id="uniform-binning-with-10-bins" class="level2">
+<h2 data-anchor-id="uniform-binning-with-10-bins">Uniform binning with 10 bins</h2>
+<!-- 09c_view_calibration_eval.ipynb with BINNING_METHOD='uniform' -->
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Using uniform binning with 10 bins
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><img src="site_media/calibration/reliability_uniform10bins.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<!-- 09c_view_calibration_eval.ipynb with BINNING_METHOD='adaptive' -->
+</section>
+<section id="adapative-binning-with-10-bins" class="level2">
+<h2 data-anchor-id="adapative-binning-with-10-bins">Adapative binning with 10 bins</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Using adaptive binning with 10 bins
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><img src="site_media/calibration/reliability_adaptive10bins.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+</main> 
+    <div class="about-footer"><div class="about-links">
+  <a href="https://github.com/FrenchKrab" class="about-link" rel="" target="">
+    <i class="bi bi-github"></i>
+     <span class="about-link-text">Github</span>
+  </a>
+  <a href="https://scholar.google.com/citations?user=7gJ465gAAAAJ" class="about-link" rel="" target="">
+    <i class="bi bi-book"></i>
+     <span class="about-link-text">Google Scholar</span>
+  </a>
+</div>
+</div>
+  </div>
+</div>
+ <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

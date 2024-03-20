@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "calibration.html",
+    "href": "calibration.html",
+    "title": "Analysis of the pretrained powerset speaker diarization model",
+    "section": "",
+    "text": "We could not include the raw result table in the paper. We show it here, and include some additional metrics (Expected Calibration Error using different binning schemes and bin counts). It is pretty clear that the bins used to compute the ECE does not have a huge impact on the metric.\n\n\n\n\n\n\nAbout the reported DERs\n\n\n\nDo note that the DER given here is the local diarization error rate. It can not be compared to DERs usually reported in the litterature ! Since the powerset speaker diarization model works on local windows of a few seconds (5 seconds in our case), we compute compute and sum the DER component on each of these windows. There is no clustering involved here (or in any DER we provide) and it cannot be interpreted as the final pipeline DER.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDataset\nDER (%)\nAccuracy (%)\nECE uniform 10 bins (%)\nECE uniform 20 bins (%)\nECE adaptive 10 bins (%)\nECE adaptive 20 bins (%)\n\n\n\n\nAISHELL\n11.86\n89.10\n0.39\n0.48\n0.50\n0.50\n\n\nAMI-SDM\n19.49\n82.79\n3.98\n3.98\n3.98\n3.98\n\n\nAMI\n17.50\n84.55\n3.53\n3.53\n3.53\n3.53\n\n\nAVA-AVD\n34.85\n81.87\n4.30\n4.31\n4.30\n4.30\n\n\nAliMeeting\n19.59\n79.46\n3.04\n3.04\n3.04\n3.04\n\n\nCALLHOME\n22.49\n77.07\n2.57\n2.57\n2.57\n2.57\n\n\nMSDWILD\n20.03\n80.52\n2.89\n2.89\n2.89\n2.89\n\n\nRAMC\n10.69\n91.12\n1.67\n1.67\n1.67\n1.67\n\n\nREPERE\n7.67\n92.48\n1.83\n1.83\n1.83\n1.83\n\n\nVoxConverse\n9.94\n91.05\n0.70\n0.70\n0.69\n0.69\n\n\n\n\n\n\n\n\n\n\n\naudiobooks\n12.22\n90.44\n3.22\n3.26\n3.28\n3.28\n\n\nbroadcast interview\n16.77\n86.90\n6.50\n6.50\n6.44\n6.44\n\n\nclinical\n32.15\n79.48\n3.94\n3.98\n3.93\n3.94\n\n\ncourt\n16.46\n86.00\n8.19\n8.19\n8.17\n8.17\n\n\ncts\n16.47\n83.68\n1.37\n1.38\n1.37\n1.37\n\n\nmaptask\n28.15\n81.25\n8.20\n8.20\n7.97\n8.08\n\n\nmeeting\n39.70\n64.26\n16.63\n16.63\n16.63\n16.63\n\n\nrestaurant\n45.82\n54.11\n14.31\n14.31\n14.31\n14.31\n\n\nsocio field\n21.74\n82.45\n2.65\n2.65\n2.65\n2.65\n\n\nsocio lab\n22.06\n82.60\n4.36\n4.36\n4.24\n4.33\n\n\nwebvideo\n40.01\n69.75\n10.52\n10.52\n10.52\n10.52"
+  },
+  {
+    "objectID": "calibration.html#uniform-binning-with-10-bins",
+    "href": "calibration.html#uniform-binning-with-10-bins",
+    "title": "Analysis of the pretrained powerset speaker diarization model",
+    "section": "Uniform binning with 10 bins",
+    "text": "Uniform binning with 10 bins\n\n\n\n\n\n\n\nUsing uniform binning with 10 bins"
+  },
+  {
+    "objectID": "calibration.html#adapative-binning-with-10-bins",
+    "href": "calibration.html#adapative-binning-with-10-bins",
+    "title": "Analysis of the pretrained powerset speaker diarization model",
+    "section": "Adapative binning with 10 bins",
+    "text": "Adapative binning with 10 bins\n\n\n\n\n\n\nUsing adaptive binning with 10 bins"
+  },
+  {
+    "objectID": "finetuning.html",
+    "href": "finetuning.html",
+    "title": "Finetuning on low-confidence data",
+    "section": "",
+    "text": "ECE and DER with x seconds of annotated training data\nIn the paper we show only a few points to make the small figures readable : 30, 300 and 1200 seconds. We present here the figures with all runs. Each point is the average of 3 runs.\nThe figure is interactive so that you can zoom in and look at the detail of each point of data."
+  }
+]
