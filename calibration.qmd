@@ -5,13 +5,12 @@ about:
   links:
     - icon: github
       text: Github
-      href: https://github.com/FrenchKrab
+      href: https://github.com/FrenchKrab/IS2024-powerset-calibration
     - icon: book
       text: Google Scholar
       href: https://scholar.google.com/citations?user=7gJ465gAAAAJ
 
 ---
-
 
 # Raw results table
 
@@ -56,18 +55,58 @@ The paper contains two scatter plots for DER / ECE. Here we grouped all datasets
 
 # Reliability diagrams
 
+Here are reliability diagrams for all 11 DIHARD 3 domains. The paper only shows uniform binning, but we also propose diagrams for adaptive binning.
+We put the figures under foldable sections since they take a lot of vertical space.
+
+
 ## Uniform binning with 10 bins
 
 <!-- 09c_view_calibration_eval.ipynb with BINNING_METHOD='uniform' -->
-::: {.callout-note appearance="detail" collapse=true}
-# Using uniform binning with 10 bins
+::: {.callout-note appearance="detail" collapse=true title="Using uniform binning with 10 bins"}
 ![](site_media/calibration/reliability_uniform10bins.png)
 :::
 
 <!-- 09c_view_calibration_eval.ipynb with BINNING_METHOD='adaptive' -->
 ## Adapative binning with 10 bins
 
-::: {.callout-note appearance="detail" collapse=true}
-# Using adaptive binning with 10 bins
+Note that the X axis is not linear at all. Since most predictions are confident, the higher bins contain very similar confidence values.
+
+::: {.callout-note appearance="detail" collapse=true title="Using adaptive binning with 10 bins"}
 ![](site_media/calibration/reliability_adaptive10bins.png)
 :::
+
+# Analysis of low-confidence regions
+
+We sample low-confidence data (left column) and random regions of data (right column), and compare the composition of the data as well as the model performance. As usual we provide the figures of all DIHARD domains instead of a select few.
+
+## Data composition
+
+<!-- 21_selected_al_analysis.ipynb -->
+::: {.callout-note appearance="detail" collapse=true title="Data composition of low-confidence regions"}
+![](site_media/calibration/data_composition.png)
+:::
+
+## Model performance (DER)
+
+<!-- 21_selected_al_analysis_der.ipynb -->
+::: {.callout-note appearance="detail" collapse=true title="DER on low-confidence regions"}
+![](site_media/calibration/der_analysis.png)
+:::
+
+
+# Reproducibility
+
+Pretrained model checkpoint downloads:
+
+- [Github](https://github.com/FrenchKrab/IS2024-powerset-calibration/tree/master/data/calibration/pretrained@epoch109.ckpt)
+- [HuggingFace (mirror)](https://huggingface.co/aplaquet/IS2024-powerset-calibration/blob/main/pretrained%40epoch109.ckpt)
+
+
+Composition of the training dataset:
+
+- [pyannote.database protocol specifications](https://github.com/FrenchKrab/IS2024-powerset-calibration/tree/master/data/calibration/database.yml)
+
+
+Parquet inference files, containing model probabilities and targets for all of the datasets:
+
+- [.parquet inference files](https://huggingface.co/aplaquet/IS2024-powerset-calibration/tree/main/model_inference)

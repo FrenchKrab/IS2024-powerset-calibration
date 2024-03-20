@@ -1,0 +1,519 @@
+Databases:
+  DIHARD_1file-1_2min_audiobooks:
+    - /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/flac/{uri}.flac
+    - /PATH/TO/dihard3/LDC2020E13_Third_DIHARD_Challenge_Evaluation_Data_SCRUBBED/data/flac/{uri}.flac
+  DIHARD_1file-1_2min_broadcast_interview:
+    - /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/flac/{uri}.flac
+    - /PATH/TO/dihard3/LDC2020E13_Third_DIHARD_Challenge_Evaluation_Data_SCRUBBED/data/flac/{uri}.flac
+  DIHARD_1file-1_2min_clinical:
+    - /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/flac/{uri}.flac
+    - /PATH/TO/dihard3/LDC2020E13_Third_DIHARD_Challenge_Evaluation_Data_SCRUBBED/data/flac/{uri}.flac
+  DIHARD_1file-1_2min_court:
+    - /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/flac/{uri}.flac
+    - /PATH/TO/dihard3/LDC2020E13_Third_DIHARD_Challenge_Evaluation_Data_SCRUBBED/data/flac/{uri}.flac
+  DIHARD_1file-1_2min_cts:
+    - /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/flac/{uri}.flac
+    - /PATH/TO/dihard3/LDC2020E13_Third_DIHARD_Challenge_Evaluation_Data_SCRUBBED/data/flac/{uri}.flac
+  DIHARD_1file-1_2min_maptask:
+    - /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/flac/{uri}.flac
+    - /PATH/TO/dihard3/LDC2020E13_Third_DIHARD_Challenge_Evaluation_Data_SCRUBBED/data/flac/{uri}.flac
+  DIHARD_1file-1_2min_meeting:
+    - /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/flac/{uri}.flac
+    - /PATH/TO/dihard3/LDC2020E13_Third_DIHARD_Challenge_Evaluation_Data_SCRUBBED/data/flac/{uri}.flac
+  DIHARD_1file-1_2min_restaurant:
+    - /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/flac/{uri}.flac
+    - /PATH/TO/dihard3/LDC2020E13_Third_DIHARD_Challenge_Evaluation_Data_SCRUBBED/data/flac/{uri}.flac
+  DIHARD_1file-1_2min_socio_field:
+    - /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/flac/{uri}.flac
+    - /PATH/TO/dihard3/LDC2020E13_Third_DIHARD_Challenge_Evaluation_Data_SCRUBBED/data/flac/{uri}.flac
+  DIHARD_1file-1_2min_socio_lab:
+    - /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/flac/{uri}.flac
+    - /PATH/TO/dihard3/LDC2020E13_Third_DIHARD_Challenge_Evaluation_Data_SCRUBBED/data/flac/{uri}.flac
+  DIHARD_1file-1_2min_webvideo:
+    - /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/flac/{uri}.flac
+    - /PATH/TO/dihard3/LDC2020E13_Third_DIHARD_Challenge_Evaluation_Data_SCRUBBED/data/flac/{uri}.flac
+
+Protocols:
+  DIHARD_1file-1_2min_audiobooks:
+    SpeakerDiarization:
+      Pretraining:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/audiobooks.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/audiobooks.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Pretuning:
+        scope: file
+        development:
+          uri: DIHARD_1file/lst/custom.dev/audiobooks.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Adaptation:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/audiobooks.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/audiobooks.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Benchmark:
+        scope: file
+        test:
+          uri: DIHARD_1file/lst/eval/audiobooks.lst
+          annotation: /PATH/TO/dihard3/LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/rttm/{uri}.rttm
+          annotated: LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/uem/{uri}.uem
+          duration: /PATH/TO/dihard3/test.duration_pyannote.map
+
+  DIHARD_1file-1_2min_broadcast_interview:
+    SpeakerDiarization:
+      Pretraining:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/broadcast_interview.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/broadcast_interview.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Pretuning:
+        scope: file
+        development:
+          uri: DIHARD_1file/lst/custom.dev/broadcast_interview.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Adaptation:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/broadcast_interview.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/broadcast_interview.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Benchmark:
+        scope: file
+        test:
+          uri: DIHARD_1file/lst/eval/broadcast_interview.lst
+          annotation: /PATH/TO/dihard3/LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/rttm/{uri}.rttm
+          annotated: LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/uem/{uri}.uem
+          duration: /PATH/TO/dihard3/test.duration_pyannote.map
+
+  DIHARD_1file-1_2min_clinical:
+    SpeakerDiarization:
+      Pretraining:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/clinical.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/clinical.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Pretuning:
+        scope: file
+        development:
+          uri: DIHARD_1file/lst/custom.dev/clinical.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Adaptation:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/clinical.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/clinical.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Benchmark:
+        scope: file
+        test:
+          uri: DIHARD_1file/lst/eval/clinical.lst
+          annotation: /PATH/TO/dihard3/LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/rttm/{uri}.rttm
+          annotated: LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/uem/{uri}.uem
+          duration: /PATH/TO/dihard3/test.duration_pyannote.map
+
+  DIHARD_1file-1_2min_court:
+    SpeakerDiarization:
+      Pretraining:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/court.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/court.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Pretuning:
+        scope: file
+        development:
+          uri: DIHARD_1file/lst/custom.dev/court.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Adaptation:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/court.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/court.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Benchmark:
+        scope: file
+        test:
+          uri: DIHARD_1file/lst/eval/court.lst
+          annotation: /PATH/TO/dihard3/LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/rttm/{uri}.rttm
+          annotated: LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/uem/{uri}.uem
+          duration: /PATH/TO/dihard3/test.duration_pyannote.map
+
+  DIHARD_1file-1_2min_cts:
+    SpeakerDiarization:
+      Pretraining:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/cts.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/cts.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: cts_custom.dev_1h.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Pretuning:
+        scope: file
+        development:
+          uri: DIHARD_1file/lst/custom.dev/cts.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Adaptation:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/cts.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/cts.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Benchmark:
+        scope: file
+        test:
+          uri: DIHARD_1file/lst/eval/cts.lst
+          annotation: /PATH/TO/dihard3/LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/rttm/{uri}.rttm
+          annotated: LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/uem/{uri}.uem
+          duration: /PATH/TO/dihard3/test.duration_pyannote.map
+
+  DIHARD_1file-1_2min_maptask:
+    SpeakerDiarization:
+      Pretraining:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/maptask.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/maptask.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Pretuning:
+        scope: file
+        development:
+          uri: DIHARD_1file/lst/custom.dev/maptask.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Adaptation:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/maptask.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/maptask.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Benchmark:
+        scope: file
+        test:
+          uri: DIHARD_1file/lst/eval/maptask.lst
+          annotation: /PATH/TO/dihard3/LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/rttm/{uri}.rttm
+          annotated: LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/uem/{uri}.uem
+          duration: /PATH/TO/dihard3/test.duration_pyannote.map
+
+  DIHARD_1file-1_2min_meeting:
+    SpeakerDiarization:
+      Pretraining:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/meeting.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/meeting.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Pretuning:
+        scope: file
+        development:
+          uri: DIHARD_1file/lst/custom.dev/meeting.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Adaptation:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/meeting.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/meeting.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Benchmark:
+        scope: file
+        test:
+          uri: DIHARD_1file/lst/eval/meeting.lst
+          annotation: /PATH/TO/dihard3/LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/rttm/{uri}.rttm
+          annotated: LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/uem/{uri}.uem
+          duration: /PATH/TO/dihard3/test.duration_pyannote.map
+
+  DIHARD_1file-1_2min_restaurant:
+    SpeakerDiarization:
+      Pretraining:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/restaurant.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/restaurant.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Pretuning:
+        scope: file
+        development:
+          uri: DIHARD_1file/lst/custom.dev/restaurant.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Adaptation:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/restaurant.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/restaurant.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Benchmark:
+        scope: file
+        test:
+          uri: DIHARD_1file/lst/eval/restaurant.lst
+          annotation: /PATH/TO/dihard3/LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/rttm/{uri}.rttm
+          annotated: LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/uem/{uri}.uem
+          duration: /PATH/TO/dihard3/test.duration_pyannote.map
+
+  DIHARD_1file-1_2min_socio_field:
+    SpeakerDiarization:
+      Pretraining:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/socio_field.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/socio_field.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Pretuning:
+        scope: file
+        development:
+          uri: DIHARD_1file/lst/custom.dev/socio_field.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Adaptation:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/socio_field.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/socio_field.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Benchmark:
+        scope: file
+        test:
+          uri: DIHARD_1file/lst/eval/socio_field.lst
+          annotation: /PATH/TO/dihard3/LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/rttm/{uri}.rttm
+          annotated: LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/uem/{uri}.uem
+          duration: /PATH/TO/dihard3/test.duration_pyannote.map
+
+  DIHARD_1file-1_2min_socio_lab:
+    SpeakerDiarization:
+      Pretraining:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/socio_lab.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/socio_lab.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Pretuning:
+        scope: file
+        development:
+          uri: DIHARD_1file/lst/custom.dev/socio_lab.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Adaptation:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/socio_lab.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/socio_lab.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Benchmark:
+        scope: file
+        test:
+          uri: DIHARD_1file/lst/eval/socio_lab.lst
+          annotation: /PATH/TO/dihard3/LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/rttm/{uri}.rttm
+          annotated: LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/uem/{uri}.uem
+          duration: /PATH/TO/dihard3/test.duration_pyannote.map
+
+  DIHARD_1file-1_2min_webvideo:
+    SpeakerDiarization:
+      Pretraining:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/webvideo.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/webvideo.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Pretuning:
+        scope: file
+        development:
+          uri: DIHARD_1file/lst/custom.dev/webvideo.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Adaptation:
+        scope: file
+        train:
+          uri: DIHARD_1file/lst/custom.train/webvideo.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: DIHARD_1file/uem/2min/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+        development:
+          uri: DIHARD_1file/lst/custom.dev/webvideo.lst
+          annotation: /PATH/TO/dihard3/dev.global_id.rttm
+          annotated: /PATH/TO/dihard3/LDC2020E12_Third_DIHARD_Challenge_Development_Data/data/uem/{uri}.uem
+          domain: /PATH/TO/dihard3/dev.domain.map
+
+      Benchmark:
+        scope: file
+        test:
+          uri: DIHARD_1file/lst/eval/webvideo.lst
+          annotation: /PATH/TO/dihard3/LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/rttm/{uri}.rttm
+          annotated: LDC2021E02_Third_DIHARD_Challenge_Evaluation_Data_Complete/data/uem/{uri}.uem
+          duration: /PATH/TO/dihard3/test.duration_pyannote.map

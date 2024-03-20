@@ -1,0 +1,54 @@
+Requirements:
+  - database_eie.yml
+  - database_dihard_1file.yml
+  - database_dihard_1file2min.yml
+  - database_dihard_1file-1_2min.yml
+  - database_dihard_1file-2_2min.yml
+  - database_dihard_1file-3_2min.yml
+
+Protocols:
+  X:
+    SpeakerDiarization:
+      Pretraining_2023-12_no-DIHARD:
+        train:
+          AISHELL.SpeakerDiarization.Adaptation: [train, ]
+          AliMeeting.SpeakerDiarization.Adaptation: [train, ]
+          AMI.SpeakerDiarization.Adaptation: [train, ]
+          AMI-SDM.SpeakerDiarization.Adaptation: [train, ]
+          AVA-AVD.SpeakerDiarization.Adaptation: [train, ]
+          CALLHOME.SpeakerDiarization.Adaptation: [train, ]
+          DISPLACE.SpeakerDiarization.Adaptation: [train, ]
+          # DIHARD.SpeakerDiarization.Adaptation: [train, ]
+          Ego4D.SpeakerDiarization.Adaptation: [train, ]
+          MSDWILD.SpeakerDiarization.Adaptation: [train, ]
+          RAMC.SpeakerDiarization.Adaptation: [train, ]
+          REPERE.SpeakerDiarization.Adaptation: [train, ]
+          VoxConverse.SpeakerDiarization.Adaptation: [train, ]
+        development:
+          AISHELL.SpeakerDiarization.Adaptation: [development, ]
+          AliMeeting.SpeakerDiarization.Adaptation: [development, ]
+          AMI.SpeakerDiarization.Adaptation: [development, ]
+          AMI-SDM.SpeakerDiarization.Adaptation: [development, ]
+          AVA-AVD.SpeakerDiarization.Adaptation: [development, ]
+          CALLHOME.SpeakerDiarization.Adaptation: [development, ]
+          DISPLACE.SpeakerDiarization.Adaptation: [development, ]
+          # DIHARD.SpeakerDiarization.Adaptation: [development, ]
+          Ego4D.SpeakerDiarization.Adaptation: [development, ]
+          MSDWILD.SpeakerDiarization.Adaptation: [development, ]
+          RAMC.SpeakerDiarization.Adaptation: [development, ]
+          REPERE.SpeakerDiarization.Adaptation: [development, ]
+          VoxConverse.SpeakerDiarization.Adaptation: [development, ]
+        test:
+          AISHELL.SpeakerDiarization.Benchmark: [test, ]
+          AliMeeting.SpeakerDiarization.Benchmark: [test, ]
+          AMI.SpeakerDiarization.Benchmark: [test, ]
+          AMI-SDM.SpeakerDiarization.Benchmark: [test, ]
+          AVA-AVD.SpeakerDiarization.Benchmark: [test, ]
+          CALLHOME.SpeakerDiarization.Benchmark: [test, ]
+          # DISPLACE.SpeakerDiarization.Benchmark: [test, ]
+          # DIHARD.SpeakerDiarization.Benchmark: [test, ]
+          # Ego4D.SpeakerDiarization.Benchmark: [test, ]
+          MSDWILD.SpeakerDiarization.Benchmark: [test, ]
+          RAMC.SpeakerDiarization.Benchmark: [test, ]
+          REPERE.SpeakerDiarization.Benchmark: [test, ]
+          VoxConverse.SpeakerDiarization.Benchmark: [test, ]

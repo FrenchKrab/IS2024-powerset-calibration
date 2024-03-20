@@ -5,7 +5,7 @@ about:
   links:
     - icon: github
       text: Github
-      href: https://github.com/FrenchKrab
+      href: https://github.com/FrenchKrab/IS2024-powerset-calibration
     - icon: book
       text: Google Scholar
       href: https://scholar.google.com/citations?user=7gJ465gAAAAJ
@@ -14,7 +14,7 @@ about:
 
 # ECE and DER with x seconds of annotated training data
 
-In the paper we show only a few points to make the small figures readable : 30, 300 and 1200 seconds. We present here the figures with all runs. Each point is the average of 3 runs.
+In the paper we show only a few points of data to make the figures readable : 30, 300 and 1200 seconds. We present here the figures with all their runs. Each point is the average of 3 seeds.
 
 The figure is interactive so that you can zoom in and look at the detail of each point of data.
 
@@ -23,3 +23,14 @@ The figure is interactive so that you can zoom in and look at the detail of each
 <iframe src="site_media/finetune/finetune_plot.html" onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight+"px";}(this));' style="height:200px;width:100%;border:none;overflow:hidden;"></iframe>
 ```
 
+# Reproducibility
+
+The model is trained on subsets of the DIHARD domains. They are composed of multiple regions from all files in the training set, these regions are selected with multiple strategies (that depend either on random sampling and/or the predictions of the model available). We make the selected training regions available as UEM files.
+
+- [UEM regions selected for training](https://github.com/FrenchKrab/IS2024-powerset-calibration/tree/master/data/finetuning/uems)
+- Output of the model used to determine the regions: [[.parquet]](https://huggingface.co/aplaquet/IS2024-powerset-calibration/blob/main/model_inference/pretrained%40dh_train.inf.parquet) [[associated metadata]](https://huggingface.co/aplaquet/IS2024-powerset-calibration/blob/main/model_inference/pretrained%40dh_train.meta.yaml)
+
+After training, we obtained checkpoints on which we computed DER and ECE. This data is also available:
+
+- [Link to the raw metric data](https://github.com/FrenchKrab/IS2024-powerset-calibration/tree/master/data/finetuning/ece_der)
+- [Link to the finetuned model checkpoints (9Go)](https://huggingface.co/aplaquet/IS2024-powerset-calibration/blob/main/checkpoints-conf_rand-seeds123.zip)

@@ -5,9 +5,22 @@ about:
   links:
     - icon: github
       text: Github
-      href: https://github.com/FrenchKrab
+      href: https://github.com/FrenchKrab/IS2024-powerset-calibration
     - icon: book
       text: Google Scholar
       href: https://scholar.google.com/citations?user=7gJ465gAAAAJ
 
 ---
+
+
+This website provides supplementary figures, data and checkpoint to the paper "On the calibration of powerset speaker diarization models".
+The structure of the paper is as follow:
+
+1. Introduction
+2. [Model calibration](calibration.qmd)
+3. Annotation-efficient domain adaptation
+   1. [Finding a minimal training subset](finetuning.qmd)
+   2. [Finding a minimal validation subset](validation.qmd)
+4. Conclusion
+
+Sections with an hyperlink contain supplementary material. Due to interactive figures, some pages weigh a few megabytes.
