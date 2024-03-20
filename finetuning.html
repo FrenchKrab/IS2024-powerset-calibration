@@ -117,6 +117,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
   <ul>
   <li><a href="#ece-and-der-with-x-seconds-of-annotated-training-data" id="toc-ece-and-der-with-x-seconds-of-annotated-training-data" class="nav-link active" data-scroll-target="#ece-and-der-with-x-seconds-of-annotated-training-data">ECE and DER with x seconds of annotated training data</a></li>
+  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility">Reproducibility</a></li>
   </ul>
 </nav>
     </div>
@@ -135,16 +136,29 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="ece-and-der-with-x-seconds-of-annotated-training-data" class="level1">
 <h1>ECE and DER with x seconds of annotated training data</h1>
-<p>In the paper we show only a few points to make the small figures readable : 30, 300 and 1200 seconds. We present here the figures with all runs. Each point is the average of 3 runs.</p>
+<p>In the paper we show only a few points of data to make the figures readable : 30, 300 and 1200 seconds. We present here the figures with all their runs. Each point is the average of 3 seeds.</p>
 <p>The figure is interactive so that you can zoom in and look at the detail of each point of data.</p>
 <!-- 22.2_draw_ece_for_finetune_gridlike_plotly.ipynb -->
 <iframe src="site_media/finetune/finetune_plot.html" onload="javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight+&quot;px&quot;;}(this));" style="height:200px;width:100%;border:none;overflow:hidden;"></iframe>
+</section>
+<section id="reproducibility" class="level1">
+<h1>Reproducibility</h1>
+<p>The model is trained on subsets of the DIHARD domains. They are composed of multiple regions from all files in the training set, these regions are selected with multiple strategies (that depend either on random sampling and/or the predictions of the model available). We make the selected training regions available as UEM files.</p>
+<ul>
+<li><a href="https://github.com/FrenchKrab/IS2024-powerset-calibration/tree/master/data/finetuning/uems">UEM regions selected for training</a></li>
+<li>Output of the model used to determine the regions: <a href="https://huggingface.co/aplaquet/IS2024-powerset-calibration/blob/main/model_inference/pretrained%40dh_train.inf.parquet">[.parquet]</a> <a href="https://huggingface.co/aplaquet/IS2024-powerset-calibration/blob/main/model_inference/pretrained%40dh_train.meta.yaml">[associated metadata]</a></li>
+</ul>
+<p>After training, we obtained checkpoints on which we computed DER and ECE. This data is also available:</p>
+<ul>
+<li><a href="https://github.com/FrenchKrab/IS2024-powerset-calibration/tree/master/data/finetuning/ece_der">Link to the raw metric data</a></li>
+<li><a href="https://huggingface.co/aplaquet/IS2024-powerset-calibration/blob/main/checkpoints-conf_rand-seeds123.zip">Link to the finetuned model checkpoints (9Go)</a></li>
+</ul>
 
 
 </section>
 </main> 
     <div class="about-footer"><div class="about-links">
-  <a href="https://github.com/FrenchKrab" class="about-link" rel="" target="">
+  <a href="https://github.com/FrenchKrab/IS2024-powerset-calibration" class="about-link" rel="" target="">
     <i class="bi bi-github"></i>
      <span class="about-link-text">Github</span>
   </a>

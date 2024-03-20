@@ -18,13 +18,34 @@
     "href": "calibration.html#adapative-binning-with-10-bins",
     "title": "Analysis of the pretrained powerset speaker diarization model",
     "section": "Adapative binning with 10 bins",
-    "text": "Adapative binning with 10 bins\n\n\n\n\n\n\nUsing adaptive binning with 10 bins"
+    "text": "Adapative binning with 10 bins\nNote that the X axis is not linear at all. Since most predictions are confident, the higher bins contain very similar confidence values.\n\n\n\n\n\n\nUsing adaptive binning with 10 bins"
+  },
+  {
+    "objectID": "calibration.html#data-composition",
+    "href": "calibration.html#data-composition",
+    "title": "Analysis of the pretrained powerset speaker diarization model",
+    "section": "Data composition",
+    "text": "Data composition\n\n\n\n\n\n\n\nData composition of low-confidence regions"
+  },
+  {
+    "objectID": "calibration.html#model-performance-der",
+    "href": "calibration.html#model-performance-der",
+    "title": "Analysis of the pretrained powerset speaker diarization model",
+    "section": "Model performance (DER)",
+    "text": "Model performance (DER)\n\n\n\n\n\n\n\nDER on low-confidence regions"
   },
   {
     "objectID": "finetuning.html",
     "href": "finetuning.html",
     "title": "Finetuning on low-confidence data",
     "section": "",
-    "text": "ECE and DER with x seconds of annotated training data\nIn the paper we show only a few points to make the small figures readable : 30, 300 and 1200 seconds. We present here the figures with all runs. Each point is the average of 3 runs.\nThe figure is interactive so that you can zoom in and look at the detail of each point of data."
+    "text": "ECE and DER with x seconds of annotated training data\nIn the paper we show only a few points of data to make the figures readable : 30, 300 and 1200 seconds. We present here the figures with all their runs. Each point is the average of 3 seeds.\nThe figure is interactive so that you can zoom in and look at the detail of each point of data.\n\n\n\n\nReproducibility\nThe model is trained on subsets of the DIHARD domains. They are composed of multiple regions from all files in the training set, these regions are selected with multiple strategies (that depend either on random sampling and/or the predictions of the model available). We make the selected training regions available as UEM files.\n\nUEM regions selected for training\nOutput of the model used to determine the regions: [.parquet] [associated metadata]\n\nAfter training, we obtained checkpoints on which we computed DER and ECE. This data is also available:\n\nLink to the raw metric data\nLink to the finetuned model checkpoints (9Go)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Index",
+    "section": "",
+    "text": "This website provides supplementary figures, data and checkpoint to the paper “On the calibration of powerset speaker diarization models”. The structure of the paper is as follow:\n\nIntroduction\nModel calibration\nAnnotation-efficient domain adaptation\n\nFinding a minimal training subset\nFinding a minimal validation subset\n\nConclusion\n\nSections with an hyperlink contain supplementary material. Due to interactive figures, some pages weigh a few megabytes."
   }
 ]

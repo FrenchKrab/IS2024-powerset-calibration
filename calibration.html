@@ -123,6 +123,12 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#uniform-binning-with-10-bins" id="toc-uniform-binning-with-10-bins" class="nav-link" data-scroll-target="#uniform-binning-with-10-bins">Uniform binning with 10 bins</a></li>
   <li><a href="#adapative-binning-with-10-bins" id="toc-adapative-binning-with-10-bins" class="nav-link" data-scroll-target="#adapative-binning-with-10-bins">Adapative binning with 10 bins</a></li>
   </ul></li>
+  <li><a href="#analysis-of-low-confidence-regions" id="toc-analysis-of-low-confidence-regions" class="nav-link" data-scroll-target="#analysis-of-low-confidence-regions">Analysis of low-confidence regions</a>
+  <ul class="collapse">
+  <li><a href="#data-composition" id="toc-data-composition" class="nav-link" data-scroll-target="#data-composition">Data composition</a></li>
+  <li><a href="#model-performance-der" id="toc-model-performance-der" class="nav-link" data-scroll-target="#model-performance-der">Model performance (DER)</a></li>
+  </ul></li>
+  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility">Reproducibility</a></li>
   </ul>
 </nav>
     </div>
@@ -385,10 +391,11 @@ About the reported DERs
 </section>
 <section id="reliability-diagrams" class="level1">
 <h1>Reliability diagrams</h1>
+<p>Here are reliability diagrams for all 11 DIHARD 3 domains. The paper only shows uniform binning, but we also propose diagrams for adaptive binning. We put the figures under foldable sections since they take a lot of vertical space.</p>
 <section id="uniform-binning-with-10-bins" class="level2">
 <h2 data-anchor-id="uniform-binning-with-10-bins">Uniform binning with 10 bins</h2>
 <!-- 09c_view_calibration_eval.ipynb with BINNING_METHOD='uniform' -->
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-note callout-titled" title="Using uniform binning with 10 bins">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -408,7 +415,8 @@ Using uniform binning with 10 bins
 </section>
 <section id="adapative-binning-with-10-bins" class="level2">
 <h2 data-anchor-id="adapative-binning-with-10-bins">Adapative binning with 10 bins</h2>
-<div class="callout callout-style-default callout-note callout-titled">
+<p>Note that the X axis is not linear at all. Since most predictions are confident, the higher bins contain very similar confidence values.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Using adaptive binning with 10 bins">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -424,13 +432,73 @@ Using adaptive binning with 10 bins
 </div>
 </div>
 </div>
-
-
 </section>
+</section>
+<section id="analysis-of-low-confidence-regions" class="level1">
+<h1>Analysis of low-confidence regions</h1>
+<p>We sample low-confidence data (left column) and random regions of data (right column), and compare the composition of the data as well as the model performance. As usual we provide the figures of all DIHARD domains instead of a select few.</p>
+<section id="data-composition" class="level2">
+<h2 data-anchor-id="data-composition">Data composition</h2>
+<!-- 21_selected_al_analysis.ipynb -->
+<div class="callout callout-style-default callout-note callout-titled" title="Data composition of low-confidence regions">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Data composition of low-confidence regions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><img src="site_media/calibration/data_composition.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="model-performance-der" class="level2">
+<h2 data-anchor-id="model-performance-der">Model performance (DER)</h2>
+<!-- 21_selected_al_analysis_der.ipynb -->
+<div class="callout callout-style-default callout-note callout-titled" title="DER on low-confidence regions">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+DER on low-confidence regions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><img src="site_media/calibration/der_analysis.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="reproducibility" class="level1">
+<h1>Reproducibility</h1>
+<p>Pretrained model checkpoint downloads:</p>
+<ul>
+<li><a href="https://github.com/FrenchKrab/IS2024-powerset-calibration/tree/master/data/calibration/pretrained@epoch109.ckpt">Github</a></li>
+<li><a href="https://huggingface.co/aplaquet/IS2024-powerset-calibration/blob/main/pretrained%40epoch109.ckpt">HuggingFace (mirror)</a></li>
+</ul>
+<p>Composition of the training dataset:</p>
+<ul>
+<li><a href="https://github.com/FrenchKrab/IS2024-powerset-calibration/tree/master/data/calibration/database.yml">pyannote.database protocol specifications</a></li>
+</ul>
+<p>Parquet inference files, containing model probabilities and targets for all of the datasets:</p>
+<ul>
+<li><a href="https://huggingface.co/aplaquet/IS2024-powerset-calibration/tree/main/model_inference">.parquet inference files</a></li>
+</ul>
+
+
 </section>
 </main> 
     <div class="about-footer"><div class="about-links">
-  <a href="https://github.com/FrenchKrab" class="about-link" rel="" target="">
+  <a href="https://github.com/FrenchKrab/IS2024-powerset-calibration" class="about-link" rel="" target="">
     <i class="bi bi-github"></i>
      <span class="about-link-text">Github</span>
   </a>
