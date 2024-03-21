@@ -2,14 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://FrenchKrab.github.io/IS2024-powerset-calibration/calibration.html</loc>
-    <lastmod>2024-03-20T16:26:38.211Z</lastmod>
+    <lastmod>2024-03-21T14:06:42.747Z</lastmod>
   </url>
   <url>
     <loc>https://FrenchKrab.github.io/IS2024-powerset-calibration/finetuning.html</loc>
-    <lastmod>2024-03-20T16:26:37.451Z</lastmod>
+    <lastmod>2024-03-21T14:06:42.003Z</lastmod>
+  </url>
+  <url>
+    <loc>https://FrenchKrab.github.io/IS2024-powerset-calibration/validation.html</loc>
+    <lastmod>2024-03-21T14:06:41.735Z</lastmod>
   </url>
   <url>
     <loc>https://FrenchKrab.github.io/IS2024-powerset-calibration/index.html</loc>
-    <lastmod>2024-03-20T16:26:37.707Z</lastmod>
+    <lastmod>2024-03-21T14:06:42.239Z</lastmod>
   </url>
 </urlset>
