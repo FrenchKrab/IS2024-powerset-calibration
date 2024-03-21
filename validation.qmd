@@ -1,0 +1,70 @@
+---
+title: "Validating on low-confidence data"
+about:
+  template: marquee
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/FrenchKrab/IS2024-powerset-calibration
+    - icon: book
+      text: Google Scholar
+      href: https://scholar.google.com/citations?user=7gJ465gAAAAJ
+
+---
+
+# Experiments performed
+
+We couldn't expand on the experiments done for the "Finding a minimal validation subset" in the paper. The main idea is to train a model for 50 epochs and obtain 50 checkpoints.
+
+We create validation subset A/B/C/etc and obtain the DER on `A@epoch1`, `A@epoch2`, ..., `A@epoch50`, `B@epoch1`, `B@epoch2`, etc, always using the same 50 checkpoints but with different validation subsets.
+Here, subsets A/B/C/etc are our different selection strategies: random selection with 30,60,120,... seconds; least-confident regions with 30,60,120,... seconds; and so on.
+
+For each of these different strategies/subset, we can then determine the best epoch : the one with the best DER. Although we have to keep in mind this DER is an estimation based on a low amount of data (the subset). To finally compare how well a validation subset approximates the full validation set, we look at the DER of the *estimated* best checkpoint VS the DER of the *objective* best checkpoint, and compute the relative difference in DER (which we will call RDiDER).
+
+Note that we test three selection strategies:
+
+- **random sampling**: the validation subset is composed of random 5s segments,
+- **low-confidence sampling**: the validation subset is composed of 5s segments where the average confidence is the lowest,
+- **low+high confidence sampling**: the validation subset is composed of 5s segments where half of them are those with lowest confidence, and the other half those with highest confidence.
+
+A good subset would find the same best checkpoint as the full set, or a checkpoint with a very low RDinDER.
+
+
+## Full results figures
+
+The full complete figures are hard to read. Each column correspond to one training (we repeated the aforementioned experiments for 3 training sets, hence 3 sets of 50 epochs). The X axis is the annotated duration of the validation subset.
+
+But we can make out some observations:
+
+- As expected, increasing the size of the validation subset helps a lot.
+- At low confidence, 'Lowest confidence' and 'Lowest & highest confidence' methods seems very unreliable.
+- Random selection seems to be more consistent in selecting a better checkpoint.
+
+::: {.callout-note appearance="detail" collapse=true title="Validation subset detail"}
+![](site_media/validation/val_der_diffs.png)
+:::
+
+## Summarizing the results
+
+Now, previous results are comprehensive but very hard to make clear observations of. It does not really answer whether random regions or low-confidence regions are better to validate, and in what case. It's also a problem because 
+
+To do so, we propose to look at all datasets at once, and check for a given validation duration T, what percentage of the selected checkpoints(Y axis) are under a threshold of RDinDER (X axis). Feel free to zoom, dezoom and change the subset size to get the whole picture.
+
+```{=html}
+<iframe src="site_media/validation/val_curves.html" onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight+"px";}(this));' style="height:200px;width:100%;border:none;overflow:hidden;"></iframe>
+```
+
+An ideal curve would be a flat line such that Y=100%: all checkpoints would have a RDinDER of 0%. 
+
+At very low subset sizes (T < 240), confidence-based sampling is not reliable : we need to have an irrealistically high tolerance in relative DER difference to be certain that all checkpoints are considered valid. For example, at T=120s, checkpoints have at most a 34% RDinDER using random sampling, but a 74% RDinDER using low-confidence regions (which is much worst). The only advantage of confidence-based subsets at low sizes is that there are more selected checkpoints where the RDinDER is very low, the counterpart is that there are also more checkpoints where it is very high, which makes it unreliable.
+
+However, as the validation subset gets bigger, low-confidence sampling becomes better than random sampling. For example, with 10 minutes of data, 82% of the checkpoints are under a 2% RDinDER using low-confidence regions, while only 42% of the checkpoint are under that threshold with random sampling.
+
+The global trend is that when the validation subset is small, no methods achieves good results, but random sampling is still considerably better and more reliable. But at higher annotation budgets, low-confidence sampling is considerably better at picking checkpoints with a very low RDinDER.
+
+
+# Reproducibility
+
+To generate the figures on this page, we took two minutes of data from a single file and finetuned the pretrained model on it for 50 epochs, we do this for every domain. The exact audio file and UEM boundaries are made available:
+
+- [One-file subsets used for training](https://github.com/FrenchKrab/IS2024-powerset-calibration/tree/master/data/validation/pyannote_database/)
