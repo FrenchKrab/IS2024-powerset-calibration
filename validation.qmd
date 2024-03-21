@@ -68,3 +68,4 @@ The global trend is that when the validation subset is small, no methods achieve
 To generate the figures on this page, we took two minutes of data from a single file and finetuned the pretrained model on it for 50 epochs, we do this for every domain. The exact audio file and UEM boundaries are made available:
 
 - [One-file subsets used for training](https://github.com/FrenchKrab/IS2024-powerset-calibration/tree/master/data/validation/pyannote_database/)
+- [Metrics CSV used to generate the figures in this page](https://github.com/FrenchKrab/IS2024-powerset-calibration/tree/master/data/validation/val_der_diffs.csv)
