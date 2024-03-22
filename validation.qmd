@@ -19,15 +19,25 @@ We couldn't expand on the experiments done for the "Finding a minimal validation
 We create validation subset A/B/C/etc and obtain the DER on `A@epoch1`, `A@epoch2`, ..., `A@epoch50`, `B@epoch1`, `B@epoch2`, etc, always using the same 50 checkpoints but with different validation subsets.
 Here, subsets A/B/C/etc are our different selection strategies: random selection with 30,60,120,... seconds; least-confident regions with 30,60,120,... seconds; and so on.
 
-For each of these different strategies/subset, we can then determine the best epoch : the one with the best DER. Although we have to keep in mind this DER is an estimation based on a low amount of data (the subset). To finally compare how well a validation subset approximates the full validation set, we look at the DER of the *estimated* best checkpoint VS the DER of the *objective* best checkpoint, and compute the relative difference in DER (which we will call RDiDER).
+For each of these different strategies/subset, we can then determine the best epoch : the one with the best DER. Although we have to keep in mind this DER is an estimation based on a low amount of data (the subset). To finally compare how well a validation subset approximates the full validation set, we look at the DER of the *estimated* best checkpoint VS the DER of the *objective* best checkpoint, and compute the relative difference in DER (which we will call RDinDER).
 
-Note that we test three selection strategies:
+To make the process a bit easier to understand, here is a figure describing the bulk of it. To make things easier, we consider only one dataset, where we have obtained our fixed 50 checkpoints. On this dataset, we consider only three validation sets: the full validation set, a random subset (of 5 minutes for example), and a subset made from low-confidence regions (also with 5 minutes of data). Here, the optimal checkpoint selection would be checkpoint 4, but random and low confidence subsets end up choosing epochs 2 and 3. This lands them respectively a 3.4% and 9.7% RDinDER.
+
+```{=html}
+<iframe src="site_media/validation/validation_process.html" onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight+50+"px";}(this));' style="height:200px;width:100%;border:none;overflow:hidden;"></iframe>
+```
+
+All our experiments follow this, except that we vary the size of the subsets and do this on the 11 DIHARD domains, which creates a lot more results (detailed in next subsections).
+
+
+
+Note that we tested three selection strategies:
 
 - **random sampling**: the validation subset is composed of random 5s segments,
 - **low-confidence sampling**: the validation subset is composed of 5s segments where the average confidence is the lowest,
 - **low+high confidence sampling**: the validation subset is composed of 5s segments where half of them are those with lowest confidence, and the other half those with highest confidence.
 
-A good subset would find the same best checkpoint as the full set, or a checkpoint with a very low RDinDER.
+A good validation subset would select a checkpoint with a very low RDinDER, ideally the same checkpoint as the one selected using the full set (i.e. RDinDER = 0%).
 
 
 ## Full results figures
