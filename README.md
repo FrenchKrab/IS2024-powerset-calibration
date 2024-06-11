@@ -11,7 +11,7 @@ Proc. InterSpeech 2024.
 
 [🌐 Browse the companion website](https://frenchkrab.github.io/IS2024-powerset-calibration/)
 
-[🐍 Install the python package](https://frenchkrab.github.io/powerset_calibration/)
+[🐍 Install the python package](https://github.com/FrenchKrab/powerset_calibration/)
 
 ## Citations
 
